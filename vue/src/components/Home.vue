@@ -1,45 +1,45 @@
 <template>
-<div id="app">
-	<layout>
-		<template #header="header">
-			<h1>{{header.title}}</h1>
-      <div class="hed">
-        <router-link to="/login">로그인</router-link> 
-         
-       <router-link to="/join">회원가입</router-link>
-      </div>
-      
-		</template>
-		<template #sidebar="sidebar">
-			<ul class="menu">
-				<li v-for="sidebar of sidebars" :key="sidebar.menu">
-					<router-link :to="sidebar.link">{{sidebar.menu}}</router-link>
-				</li>
-			</ul>
-		</template>
-		<template #content="content">
-           <router-view/>
-		</template>
-		<template #footer="footer">
-			<h3>{{footer.foot}}</h3>
-		</template>
-	</layout>
-</div>
+	<div id="app">
+		<layout>
+			<template #header="header">
+				<h1>{{header.title}}</h1>
+				<component :is="!loginCheck ? 'pre-auth' : 'post-auth'"></component>
+			</template>
+			<template #sidebar="sidebar">
+				<ul class="menu">
+					<li v-for="i of sidebars" :key="i.menu" >
+						<router-link :to="i.link">{{i.menu}}</router-link>
+					</li>
+				</ul>
+			</template>
+			<template #content="content"><router-view/></template>
+			<template #footer="footer">{{footer.title}}</template>
+		</layout>
+	</div>
 </template>
 <script>
 import Layout from "@/components/cmm/Layout.vue"
+import PreAuth from "@/components/cmm/PreAuth.vue"
+import PostAuth from "@/components/cmm/PostAuth.vue"
+import { store } from "@/store"
 export default{
-	components : {Layout},
+	components : {Layout, PreAuth, PostAuth},
 	data(){
-		return{
-			sidebars : [
-				{menu : "글쓰기", link: "/write"},
-				{menu : "목록", link: "/list"},
-				{menu : "수정", link: "/update"},
-				{menu : "삭제", link: "/remove"},
-				{menu : "검색", link: "/research"},
+		return {
+			sidebars: [
+				{menu:"글쓰기",link:"/write"},
+				{menu:"목록",link:"/list"},
+				{menu:"글수정",link:"/update"},
+				{menu:"글삭제",link:"/remove"},
+				{menu:"검색",link:"/search"}
 			]
 		}
+	},
+	computed:{
+		loginCheck: function(){
+			return store.state.authCheck
+		}
+		
 	}
 }
 </script>
@@ -52,10 +52,5 @@ ul.menu {
 }
 ul.menu a {
     text-decoration:none;
-}
-div.hedd{
-    display:flex;
-    margin: 1 auto;
-
 }
 </style>

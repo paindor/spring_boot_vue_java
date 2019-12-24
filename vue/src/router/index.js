@@ -9,8 +9,8 @@ import Remove from '@/components/board/Remove.vue'
 import Research from '@/components/board/Research.vue'
 import Join from '@/components/member/Join.vue'
 import Login from '@/components/member/Login.vue'
-
-
+import Mypage from '@/components/member/Mypage.vue'
+import MypageUpdate from '@/components/member/MypageUpdate.vue'
 
 Vue.use(Router)
 export default new Router({
@@ -24,6 +24,8 @@ export default new Router({
 		{path:'/research' , name:'research' , component: Research},
 		{path:'/join' , name:'join' , component: Join},
 		{path:'/login' , name:'login' , component:Login},
+		{path:'/myPage' , name:'myPage' , component:Mypage},
+		{path:'/mypageUpdate' , name:'mypageUpdate' , component:MypageUpdate},
 		
 
 	]

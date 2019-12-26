@@ -23,9 +23,12 @@ public class Person {
 	@Id
 	@GeneratedValue
 	@Column(name= "ID" , nullable =false) private Long id;
-	@Column(name= "USERID" , length=64, nullable =false) private String userid;
-	@Column(name= "PASS" , length=64, nullable =false) private String passwd;
-	@Column(name= "NAME" , length=64, nullable =false) private String name;
+	@Column(name= "USERID" , length=64, nullable =false) 
+	private String userid;
+	@Column(name= "PASS" , length=64, nullable =false) 
+	private String passwd;
+	@Column(name= "NAME" , length=64, nullable =false) 
+	private String name;
 	@Temporal(TemporalType.DATE)
 	@Column(name= "BIRTHDAY" , nullable =true) private Date birthday;
 	@Column(name= "GENDER" ,nullable = false)
@@ -36,6 +39,8 @@ public class Person {
 	private int ban;
 	@Column(name= "SCORE" ,nullable = false)
 	private int score;
+	@Column(name= "ROLE" ,nullable = false)
+	private String role;
 	
 	
 	//

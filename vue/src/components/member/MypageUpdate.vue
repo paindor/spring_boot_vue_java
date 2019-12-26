@@ -19,48 +19,28 @@
 </template>
 <script>
 import {store} from "../../store"
-import axios from 'axios'
 export default{
 	data(){
-		return{
-			context: 'http://localhost:8080/',
-			name: store.state.name,
-			person : store.state.person,
-			sidebars: [
+		return {
+      context : 'http://localhost:8080/',
+      name: store.state.name,
+      person : store.state.person,
+      sidebars: [
 				{menu:"학생등록",link:"/write"},
 				{menu:"학생목록",link:"/list"},
 				{menu:"학생정보수정",link:"/update"},
 				{menu:"학생정보삭제",link:"/remove"},
-				{menu:"학생검색",link:"/search"}],
-			authCheck : true
+				{menu:"학생검색",link:"/search"}
+      ],
+      authCheck : true
 		}
 		
 	},
-	methods:{
-		modify(){
-			alert(this.person.gender)
-			alert(`${this.context}/modify`)
-		
-			let url = `${this.context}/modify`
-			let data = this.person
-			let headers = {
-				'authorization': 'JWT fefege..',
-				'Accept' : 'application/json',
-				'Content-Type': 'application/json'
-			}
-			axios
-			.post(url, data, headers)
-			.then(res=>{
-				alert(res)
-			}).catch(()=>{
-				alert('실패')
-			})
-		}
-	}
+  methods  : {
+    
+  }
 }
-
 </script>
-
 <style scoped>
     .back {width: 700px; margin: 0 ;}
     .sub {width: 100%; height: 600px; margin: 0 auto; text-align: center;}

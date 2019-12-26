@@ -23,23 +23,23 @@ public class PersonInit implements ApplicationRunner {
 		long count = personRepository.count();
 		if(count ==0) {
 			Person person = null;
-			String[][] mtx = {{"hong" , "1", "홍길동" , "1980-01-01"},
-					{"kim" , "1" ,"김유신", "1980-05-05"},
-					{"park" , "1" ,"박지성", "1981-06-05"},
-					{"you" , "1" ,"유라", "1989-09-09"},
-					{"go" , "1" ,"고종수", "1989-09-09"},
-					{"oh" , "1" ,"오징어", "1989-09-09"},
-					{"ma" , "1" ,"마사라", "1989-09-09"},
-					{"choi" , "1" ,"최씨", "1989-09-09"},
-					{"cho" , "1" ,"조조", "1989-09-09"},
-					{"lee" , "1" ,"이도", "1989-09-09"},
-					{"no" , "1" ,"노올", "1989-09-09"},
-					{"so" , "1" ,"소라", "1989-09-09"},
-					{"jung" , "1" ,"정유라", "1989-09-09"},
-					{"bono" , "1" ,"보노보노", "1989-09-09"},
-					{"hi" , "1" ,"히히", "1989-09-09"},
-					{"na" , "1" ,"나나", "1989-09-09"},
-					{"ho" , "1" ,"호성", "1989-09-09"}
+			String[][] mtx = {{"hong" , "1", "홍길동" , "1980-01-01","teacher"},
+					{"kim" , "1" ,"김유신", "1980-05-05" , "manager"},
+					{"park" , "1" ,"박지성", "1981-06-05" ,"student"},
+					{"you" , "1" ,"유라", "1989-09-09" , "student"},
+					{"go" , "1" ,"고종수", "1989-09-09","student"},
+					{"oh" , "1" ,"오징어", "1989-09-09","student"},
+					{"ma" , "1" ,"마사라", "1989-09-09","student"},
+					{"choi" , "1" ,"최씨", "1989-09-09","student"},
+					{"cho" , "1" ,"조조", "1989-09-09","student"},
+					{"lee" , "1" ,"이도", "1989-09-09","student"},
+					{"no" , "1" ,"노올", "1989-09-09","student"},
+					{"so" , "1" ,"소라", "1989-09-09","student"},
+					{"jung" , "1" ,"정유라", "1989-09-09" , "teacher"},
+					{"bono" , "1" ,"보노보노", "1989-09-09","student"},
+					{"hi" , "1" ,"히히", "1989-09-09", "student"},
+					{"na" , "1" ,"나나", "1989-09-09", "manager"},
+					{"ho" , "1" ,"호성", "1989-09-09", "student"}
 					};
 			
 			for(String[] arr : mtx) {
@@ -49,6 +49,7 @@ public class PersonInit implements ApplicationRunner {
 					person.setPasswd(arr[1]);
 					person.setName(arr[2]);
 					person.setBirthday(df.parse(arr[3]));
+					person.setRole(arr[4]);
 					int a = (int)Math.random() * 2;
 					String result = "";
 					if(a==1) {
@@ -60,6 +61,7 @@ public class PersonInit implements ApplicationRunner {
 					person.setGender(result);
 					person.setHak((int)(Math.random()* 4 )+1);
 					person.setBan((int)(Math.random()* 6 )+1);
+					
 					person.setScore((int)(Math.random()*100) );
 					
 					

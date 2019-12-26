@@ -1,5 +1,5 @@
 <template>
-<div id="auth-box">	
+<div>	
      <a @click.prevent="logout">로그아웃</a>
      <a @click.prevent="widthdrawal">회원탈퇴</a>
 </div>
@@ -8,33 +8,26 @@
 import axios from "axios"
 import {store} from "../../store"
 export default{
-    data(){
-		return {
-			context: 'http://localhost:8080/'
-		}
-    },
     methods : {
         logout(){
-            alert('로그아웃 클릭 ')
-            store.state.loginedUid = ''
-            store.state.loginedPwd = ''
-            store.state.name = ''
-            store.state.birthday = ''
-            store.state.id = ''
+            store.state.person = {},
+            store.state.authCheck = false,
+            store.state.sidebar = 'preSidebar',
             this.$router.push({path: '/login'})
         },
-        widthdrawal(){
-			alert(`${store.state.person.userid}`)
-			alert(`${this.context}/withdrawal`)
+        withdrawal(){
             axios
-           .delete(`${this.context}/withdrawal/${store.state.person.userid}`)
-           .then(
-				alert(`회원탈퇴 성공`)
-                )
+            .delete(`${this.context}/withdrawal/${store.state.person.userid}`)
+            .then(
+                store.state.person = {},
+                store.state.authCheck = false,
+                store.state.sidebar = 'preSidebar',
+                this.$router.push({path: '/login'})
+            )
             .catch(()=>{
-                    alert(`회원탈퇴 실패`)
+                alert(`회원탈퇴 실패`)
             })
-            this.$router.push({path: '/login'})
+            
         }
     }
     

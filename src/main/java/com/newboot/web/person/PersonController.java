@@ -3,10 +3,15 @@ package com.newboot.web.person;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Stream;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,6 +37,10 @@ public class PersonController {
 	private Printer printer;
 	@Autowired
 	private Person person;
+	@Autowired
+	ModelMapper modelMapper;
+	@Bean
+	public ModelMapper modelMapper() { return new ModelMapper();}
 	
 	@RequestMapping("/")
 	public String index() {
@@ -98,5 +107,22 @@ public class PersonController {
 		
 		return "success";
 		
+	}
+	@GetMapping("/students")
+	public Stream<PersonDTO> list(){
+		Iterable<Person> entites = personRepository.findAll();
+		List<PersonDTO> list = new ArrayList<PersonDTO>();
+		
+		for(Person p : entites) {
+			PersonDTO dto = modelMapper.map(p, PersonDTO.class);
+			list.add(dto);
+			
+			
+		}
+		printer.accept("list: " +list.size());
+		return list.stream().
+				filter(role-> role.getRole().equals("student"));
+		
+		//Iterable<Person> entites=personRepository.findByRole("student");
 	}
 }

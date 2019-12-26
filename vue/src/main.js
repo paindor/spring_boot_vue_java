@@ -1,27 +1,20 @@
 import Vue from 'vue'
-import App from './components/Home.vue'
-import vueRouter from 'vue-router'
+import App from './components/Home'
 import router from './router'
-
 import axios from 'axios'
 import vuex from 'vuex'
-//import promise from 'es6-promise';
-import { store } from './store'
-
-//import VueElementLoading from 'vue-element-loading'
+import {store} from './store'
+import VSwitch from 'v-switch-case'
 
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
+Vue.use(VSwitch)
 
 new Vue({
-	render: h => h(App),
-	router,
-	vueRouter,
-	axios,
-	vuex,
-	store
-
-	// VueElementLoading
-
+  render: h => h(App),
+  router,
+  axios,
+  vuex,
+  store
 }).$mount('#app')

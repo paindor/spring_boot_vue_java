@@ -1,8 +1,5 @@
 package com.newboot.web.person;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,22 +22,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.newboot.web.util.Printer;
 
-import javafx.scene.input.DataFormat;
-
 @RestController
 @CrossOrigin(origins = "http://localhost:8081")
 public class PersonController {
-	private static final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	@Autowired
-	private PersonRepository personRepository;
-	@Autowired
-	private Printer printer;
-	@Autowired
-	private Person person;
-	@Autowired
-	ModelMapper modelMapper;
-	@Bean
-	public ModelMapper modelMapper() { return new ModelMapper();}
+	@Autowired private PersonRepository personRepository;
+	@Autowired private Printer printer;
+	@Autowired private Person person;
+	@Autowired ModelMapper modelMapper;
+	@Autowired PersonService personService;
+	@Bean public ModelMapper modelMapper() {return new ModelMapper();}
 	
 	@RequestMapping("/")
 	public String index() {
@@ -67,62 +57,68 @@ public class PersonController {
 		}else {
 			printer.accept("로그인 실패");
 			map.put("result", "FAIL");
-			map.put("result", person);
+			map.put("person", person);
 		}
 		return map;
 	}
-	@PostMapping("/join")
-	public String join(@RequestBody Person param) {
-		person = new Person();
-		person.setUserid(param.getUserid());
-		person.setPasswd(param.getPasswd());
-		person.setName(param.getName());
-		try {
-			person.setBirthday(df.parse("2000-10-10"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		printer.accept(param.getUserid());
-		personRepository.save(param);
-		
-		return "success";
-		
-	}
 	@DeleteMapping("/withdrawal/{userid}")
 	public void withdrawal(@PathVariable String userid) {
-		printer.accept("탈퇴");
-		
 		personRepository
 		.delete(personRepository
 				.findByUserid(userid));
 	}
-	@PostMapping("/modify")
-	public String modify(@RequestBody Person param) {
-		printer.accept("in the modify");
-		System.out.println(param.getUserid());
-		printer.accept(param.getGender());
-		
-		personRepository.save(param);
-		
-		return "success";
-		
-	}
 	@GetMapping("/students")
 	public Stream<PersonDTO> list(){
+		//Iterable<Person> entites=personRepository.findByRole("student"); 
 		Iterable<Person> entites = personRepository.findAll();
-		List<PersonDTO> list = new ArrayList<PersonDTO>();
-		
-		for(Person p : entites) {
+		List<PersonDTO> list = new ArrayList<>();
+		for(Person p: entites) {
 			PersonDTO dto = modelMapper.map(p, PersonDTO.class);
 			list.add(dto);
-			
-			
 		}
-		printer.accept("list: " +list.size());
-		return list.stream().
-				filter(role-> role.getRole().equals("student"));
+		return list.stream()
+				.filter(role-> role.getRole().equals("student"));
 		
-		//Iterable<Person> entites=personRepository.findByRole("student");
+	}
+	@GetMapping("/students/search/{searchWord}")
+	public Stream<PersonDTO> findSome(@PathVariable String searchWord){
+		personService.findByHak();
+		switch(searchWord) {
+			case "namesOfStudents" :break;
+			case "streamToArray" :break;
+			case "streamToMap" :break;
+			case "theNumberOfStudents" :break;
+			case "totalScore" :break;
+			case "topStudent" :break;
+			case "getStat" :break;
+			case "nameList" :break;
+			case "partioningByGender" :break;
+			case "partioningCountPerGender" :break;
+			case "partioningTopPerGender" :break;
+			case "partioningRejectPerGender" :break;
+			case "groupingByBan" :break;
+			case "groupingByGrade" :break;
+			case "groupingByCountByLevel" :break;
+			case "groupingByHakAndBan" :break;
+			case "groupingTopByHakAndBan" :break;
+			case "groupingByStat" :break;
+		}
+		Iterable<Person> entites = personRepository.findGroupByHak();
+		List<PersonDTO> list = new ArrayList<>();
+		for(Person p: entites) {
+			PersonDTO dto = modelMapper.map(p, PersonDTO.class);
+			list.add(dto);
+		}
+		
+		return list.stream()
+				.filter(role-> role.getRole().equals("student"));
+		
 	}
 }
+
+
+
+
+
+
+

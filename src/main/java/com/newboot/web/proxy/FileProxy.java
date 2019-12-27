@@ -16,8 +16,8 @@
  * Path.UPLOAD_PATH.toString(); // File uploadPath = makeDir(uploadFolder,
  * getFolder());
  * 
- * //if(uploadPath.exists() == false) { // uploadPath.mkdirs(); } final String s
- * = getFolder(); for(MultipartFile m : uploadFile) { String fname =
+ * if(uploadPath.exists() == false) { uploadPath.mkdirs(); } final String s =
+ * getFolder(); for(MultipartFile m : uploadFile) { String fname =
  * m.getOriginalFilename(); String extension =
  * fname.substring(fname.lastIndexOf(".")+1); fname =
  * fname.substring(fname.lastIndexOf("\\")+1, fname.lastIndexOf(".")); File

@@ -17,7 +17,16 @@
 	<td>{{j.role}}</td>
 	</tr>
 	</table>
+	<div class="btn-cover">
+      <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
+        이전
+      </button>
+      <span class="page-count">{{ pageNum + 1 }} </span>
+      <button :disabled="pageNum >= pageCount - 1" @click="nextPage" class="page-btn">
+        다음
+      </button>
 	</div>
+</div>	
 </template>
 <script>
 import axios from 'axios'
@@ -25,7 +34,9 @@ export default{
 	data(){
 		return {
 			context: 'http://localhost:8080/',
-			list: []
+			list: [],
+			pageNum: 0,
+			pageCount: 5
 		}
 	},
 	created(){
@@ -41,8 +52,38 @@ export default{
 }
 </script>
 <style scoped>
-.table{border : 1px solid black}
-.table tr{border : 1px solid black}
-.table tr th{border : 1px solid black}
-.table tr td{border : 1px solid black}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table th {
+  font-size: 1.2rem;
+}
+.table tr {
+  height: 2rem;
+  text-align: center;
+  border-bottom: 1px solid #505050;
+}
+.table tr:first-of-type {
+  border-top: 2px solid #404040;
+}
+.table tr td {
+  padding: 1rem 0;
+  font-size: 1.1rem;
+}
+.btn-cover {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+.btn-cover .page-btn {
+  width: 5rem;
+  height: 2rem;
+  letter-spacing: 0.5px;
+}
+.btn-cover .page-count {
+  padding: 0 1rem;
+  border: 1px solid black;
+  margin-right: 10px;
+  margin-left: 10px;
+}
 </style>

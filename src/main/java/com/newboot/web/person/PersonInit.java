@@ -1,5 +1,6 @@
 package com.newboot.web.person;
 
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -14,12 +15,19 @@ import com.newboot.web.proxy.Proxy;
 
 @Component
 public class PersonInit extends Proxy implements ApplicationRunner  {
+	@SuppressWarnings("unused")
 	private PersonRepository personRepository;
 	private static final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	@Autowired
 	public PersonInit(PersonRepository personRepository) {
 		this.personRepository = personRepository;
 	}
+	/*
+	 * @Override public void run(ApplicationArguments args) throws Exception {
+	 * 
+	 * 
+	 * }
+	 */
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -61,13 +69,10 @@ public class PersonInit extends Proxy implements ApplicationRunner  {
 				person.setRole(arr[8]);
 				personRepository.save(person);
 			}
-
 		}
-
 	}
 
 }
-
 
 
 /*

@@ -23,12 +23,11 @@
 </div>
 </template>
 <script>
-import axios from "axios"
-import {store} from "../../store"
+
 export default{
     data(){
         return{
-            context : 'http://localhost:8080/',
+          
             userid : '',
             passwd : '',
             name : '',
@@ -36,39 +35,7 @@ export default{
         }
     },
     methods : {
-        join(){
-            let url = `${this.context}/join`
-            let data = {
-                userid : this.userid,
-                passwd : this.passwd,
-                name : this.name,
-                birthday : this.birthday
-            }
-            let headers = {
-                    'authorization': 'JWT fefege..',
-                    'Accept' : 'application/json',
-                    'Content-Type': 'application/json'
-            }
-            axios
-            .post(url, data, headers)
-            .then(res=>{
-                if(res.data.result==="SUCCESS")
-                    {alert(`${res.data.person.name}님 가입을 환영합니다.`)
-                    store.state.userid = res.data.person.userid
-                    store.state.passwd = res.data.person.passwd
-                    store.state.name = res.data.person.name
-                    store.state.birthday = res.data.person.birthday
-                    store.state.id = res.data.person.id
-                    this.$router.push({path : '/mypage'})
-                    }
-                else
-                {alert(`회원가입 실패!`)
-                this.$router.push({path : '/join'})}
-            })
-            .catch(()=>{
-                alert(`axios 실패!`)
-            })
-        }
+        
     }
 }
 </script>

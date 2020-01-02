@@ -1,13 +1,15 @@
 package com.newboot.web.person;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.newboot.web.util.Printer;
-
-
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8081")
@@ -50,14 +50,16 @@ public class PersonController {
 				param.getUserid(), 
 				param.getPasswd());
 		if(person != null) {
-			printer.accept("로그인 성공");
-			map.put("result", "SUCCESS");
+			printer.accept("로그인 2020 성공");
+			map.put("result", "True");
 			map.put("person", person);
+			
 		}else {
 			printer.accept("로그인 실패");
-			map.put("result", "FAIL");
+			map.put("result", "False");
 			map.put("person", person);
 		}
+		System.out.println();
 		return map;
 	}
 	@DeleteMapping("/withdrawal/{userid}")
@@ -67,7 +69,7 @@ public class PersonController {
 				.findByUserid(userid));
 	}
 	@GetMapping("/students")
-	public Stream<Person> list(){
+	public List<Person> list(){
 		//Iterable<Person> entites=personRepository.findByRole("student"); 
 		Iterable<Person> entites = personRepository.findAll();
 		List<Person> list = new ArrayList<>();
@@ -75,8 +77,11 @@ public class PersonController {
 			Person dto = modelMapper.map(p, Person.class);
 			list.add(dto);
 		}
+		list.stream()
+			.filter(role-> role.getRole().equals("student"));
 		return list.stream()
-				.filter(role-> role.getRole().equals("student"));
+				.sorted(Comparator.comparing(Person::getPersonid)
+						.reversed()).collect(Collectors.toList());
 		
 	}
 	
@@ -148,3 +153,5 @@ public class PersonController {
 		
 	}
 }
+
+

@@ -3,6 +3,7 @@
 import Students from "@/components/student/Students.vue"
 import {store} from "../../store"
 export default{
+	name: 'admin',
 	components: {
 		Students
 	},
@@ -21,6 +22,11 @@ export default{
 		}
 		
 	}
+     /*created(){
+          
+        this.$emit(changeSidebars,'test')
+          
+     }*/
 }
 </script>
 <style scoped>

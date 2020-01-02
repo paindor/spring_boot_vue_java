@@ -1,28 +1,41 @@
 <template>
-<div id="wrapper">
-	<header>
-		<slot name="header" :title="header"></slot>
-	</header>
-	<aside id="sidebar">
-		<slot name="sidebar"></slot>
-	</aside>
-	<section id="content">
-		<slot name="content" :cont="content"></slot>
-	</section>
-	<footer id="footer">
-		<slot name="footer" :foot="footer"></slot>
-	</footer>
-</div>
+	<div id="wrapper">
+		<header>
+			<slot name="header" :title="changeMessage"></slot>
+		</header>
+		<aside id="sidebar">
+			<slot name="sidebar"></slot>
+		</aside>
+		<section id="content">
+			<slot name="content" :title="contnent"></slot>
+		</section>
+		<footer>
+			<slot name="footer" :title="footer"></slot>
+		</footer>
+	</div>
 </template>
 <script>
 export default {
 	data(){
-		return{
-			header : '헤더인데수웅',
-			content : '컨텐트데스웅',
-			footer : '푸터데스웅'
+		return {
+               contnent : '컨텐츠부분',
+               footer : '푸터부분'
 		}
-	}
+     },
+     computed: {
+          changeMessage: function () {
+               alert('>>> '+this.$store.state.admin.isAuth)
+               if(this.$store.state.common.isAuth){
+                    alert('로그인후')
+               }else{
+                    alert('로그인전')
+               }
+               return this.$store.state.admin.header
+          },
+          changeSidebars: function(){
+               return this.$store.state.common.changeSidebars
+          }
+     }
 }
 </script>
 <style scoped>

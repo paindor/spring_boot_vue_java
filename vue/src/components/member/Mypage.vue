@@ -20,6 +20,7 @@
 <script>
 import {store} from "../../store"
 export default{
+  name: 'myPage',
 	data(){
 		return {
       context : 'http://localhost:8080/',

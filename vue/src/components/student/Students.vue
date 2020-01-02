@@ -1,49 +1,34 @@
 <template> 
 	<div>학생들 목록 
-	<table class="table"><tr>
-	<th>No.</th><th>아이디</th><th>비번</th><th>이름</th><th>생년월일</th>
-	<th>성별</th><th>학년</th><th>반</th><th>점수</th><th>역할</th>
-	</tr>
-	<tr v-for="(j, i) of list" :key="j.id">
-	<td>{{i+1}}</td>
-	<td>{{j.userid}}</td>
-	<td>{{j.passwd}}</td>
-	<td>{{j.name}}</td>
-	<td>{{j.birthday}}</td>
-	<td>{{j.gender}}</td>
-	<td>{{j.hak}}</td>
-	<td>{{j.ban}}</td>
-	<td>{{j.score}}</td>
-	<td>{{j.role}}</td>
-	</tr>
-	</table>
-	<div class="btn-cover">
-      <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
-        이전
-      </button>
-      <span class="page-count">{{ pageNum + 1 }} </span>
-      <button :disabled="pageNum >= pageCount - 1" @click="nextPage" class="page-btn">
-        다음
-      </button>
-	</div>
+	<pagination :list-array="pageArray"/>
+	
 </div>	
 </template>
 <script>
 import axios from 'axios'
+import Pagination from '@/components/cmm/Pagination.vue'
 export default{
 	data(){
 		return {
-			context: 'http://localhost:8080/',
-			list: [],
-			pageNum: 0,
-			pageCount: 5
+			ctx: this.$store.state.common.context,
+			pageArray: []
 		}
+	},
+	components:{
+		Pagination
 	},
 	created(){
 		axios
-		.get(`${this.context}/students`)
+		.get(`${this.ctx}/students`)
 		.then(res =>{
-			this.list = res.data
+			/* let arr = []
+			for(let i = 1; i< res.data.length/5; i++){
+				arr.push(i)
+			}
+			
+			this.pages = arr
+			this.list = res.data.slice(0,5) */
+			this.pageArray = res.data
 		})
 		.catch(e=>{
 			alert('AXIOS FAIL'+e)

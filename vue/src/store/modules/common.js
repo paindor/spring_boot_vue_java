@@ -3,14 +3,15 @@ const state = {
 	context: 'http://localhost:8080/',
 	isAuth: false,
 	headerMessage: '공통 화면',
-	errorState: ''
+  errorState: '',
+  sidebars : 'preSidebar'
 }
 const getters = {
-	getErrorState: state => state.errorState,
-    getIsAuth: state => state.isAuth,
-    getContext: state => state.context,
-    getSidebars: state => state.sidebars,
-    getHeaderMessage: state => state.headerMessage
+  getErrorState: state => state.errorState,
+  getIsAuth: state => state.isAuth,
+  getContext: state => state.context,
+  getSidebars: state => state.sidebars,
+  getHeaderMessage: state => state.headerMessage
 }
 const actions = {}
 const mutations = {
@@ -31,6 +32,7 @@ const mutations = {
   }
 }
 export default {
+  name: 'common',
 	namespaced : true,
 	state,
 	getters,

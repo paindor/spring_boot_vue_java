@@ -1,17 +1,11 @@
-
-
-const states={
-
-}
+const state = {}
 const getters = {}
-
-const actions ={} 
-
+const actions = {}
 const mutations = {}
-
 export default{
+	name: 'article',
 	namespaced : true,
-	states,
+	state,
 	getters,
 	actions,
 	mutations

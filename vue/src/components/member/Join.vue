@@ -25,18 +25,8 @@
 <script>
 
 export default{
-    data(){
-        return{
-          
-            userid : '',
-            passwd : '',
-            name : '',
-            birthday : ''
-        }
-    },
-    methods : {
-        
-    }
+    name: 'join',
+   
 }
 </script>
 <style scoped>
